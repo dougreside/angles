@@ -166,10 +166,16 @@ ValidatorSAX.prototype.checkSchema = function(parser,els) {
 
   var currentEl = els[0].name,
       parentEl = els[1].name;
+      console.log("___________________");
+  if (this.$schema[parentEl]){
 
-  if(this.$schema[parentEl].children.indexOf(currentEl) == -1) {
-    parser.validationError("The " + currentEl + " element is not allowed as a child of the " + parentEl + " element.");
+  if((JSON.stringify(this.$schema[parentEl].children).indexOf(currentEl)) == -1) {
+  
+    
+    parser.validationError("The " + currentEl + " element is not allowed as a child of the " + parentEl + " element. Acceptable children include: "+_.uniq(this.$schema[parentEl].children));
+    
     return;
+  }
   }
 };
 
